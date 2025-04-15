@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>animeh</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+              <version>${projectlombok-lombok.version}</version>
+            </path>
+            <path>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <groupId>org.projectlombok</groupId>
+              <version>${lombok-mapstruct-binding.version}</version>
+            </path>
+            <path>
+              <artifactId>mapstruct-processor</artifactId>
+              <groupId>org.mapstruct</groupId>
+              <version>${mapstruct.version}</version>
+            </path>
+            <path>
+              <artifactId>hibernate-jpamodelgen</artifactId>
+              <groupId>org.hibernate</groupId>
+              <version>6.6.11.Final</version>
+            </path>
+          </annotationProcessorPaths>
+          <compilerArgs>
+            <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
+            <arg>-Amapstruct.defaultComponentModel=spring</arg>
+            <arg>-Amapstruct.verbose=true</arg>
+          </compilerArgs>
+          <source>21</source>
+          <target>21</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <!--			<plugin>-->
+      <!--				<groupId>org.asciidoctor</groupId>-->
+      <!--				<artifactId>asciidoctor-maven-plugin</artifactId>-->
+      <!--				<version>2.2.1</version>-->
+      <!--				<executions>-->
+      <!--					<execution>-->
+      <!--						<id>generate-docs</id>-->
+      <!--						<phase>prepare-package</phase>-->
+      <!--						<goals>-->
+      <!--							<goal>process-asciidoc</goal>-->
+      <!--						</goals>-->
+      <!--						<configuration>-->
+      <!--							<backend>html</backend>-->
+      <!--							<doctype>book</doctype>-->
+      <!--						</configuration>-->
+      <!--					</execution>-->
+      <!--				</executions>-->
+      <!--				<dependencies>-->
+      <!--					<dependency>-->
+      <!--						<groupId>org.springframework.restdocs</groupId>-->
+      <!--						<artifactId>spring-restdocs-asciidoctor</artifactId>-->
+      <!--						<version>${spring-restdocs.version}</version>-->
+      <!--					</dependency>-->
+      <!--				</dependencies>-->
+      <!--			</plugin>-->
+      <!-- Checkstyle plugin -->
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>${project.basedir}/checkstyle/checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <!-- Build thất bại khi có lỗi -->
+          <failsOnError>false</failsOnError>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <id>checkstyle-validation</id>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.6.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <artifactId>lombok</artifactId>
+              <groupId>org.projectlombok</groupId>
+            </exclude>
+          </excludes>
+        </configuration>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+      <plugin>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>com/source/animeh/dto/**</exclude>
+            <exclude>com/source/animeh/entity/**</exclude>
+            <exclude>com/source/animeh/mapper/**</exclude>
+            <exclude>com/source/animeh/repository/**</exclude>
+            <exclude>com/source/animeh/configuration/**</exclude>
+            <exclude>com/source/animeh/constant/**</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <!-- Gắn agent Jacoco để thu thập coverage -->
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <id>prepare-agent</id>
+          </execution>
+
+          <!-- Tạo báo cáo coverage sau khi test (ở phase prepare-package) -->
+          <execution>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <id>report</id>
+            <phase>prepare-package</phase>
+          </execution>
+
+          <!-- Đây là phần check coverage ở giai đoạn verify -->
+          <execution>
+            <configuration>
+              <rules>
+                <rule>
+                  <!-- BUNDLE => check toàn bộ project -->
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <!-- Có thể check LINE, BRANCH, METHOD,... -->
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <!-- Coverage tối thiểu -->
+                      <!--                      <minimum>0.70</minimum>-->
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <id>jacoco-check</id>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+        <groupId>org.jacoco</groupId>
+        <version>0.8.12</version>
+      </plugin>
+      <plugin>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <configuration>
+          <java>
+            <endWithNewline/>
+            <importOrder>
+              <!-- Specify either order or file, but not both -->
+              <order>java,jakarta,org,com,com.diffplug,</order>
+            </importOrder>
+            <indent>
+              <spacesPerTab>4</spacesPerTab>
+              <tabs>true</tabs>
+            </indent>
+            <palantirJavaFormat/>
+            <removeUnusedImports/>
+            <toggleOffOn/>
+            <trimTrailingWhitespace/>
+          </java>
+        </configuration>
+        <groupId>com.diffplug.spotless</groupId>
+        <version>${spotless.version}</version>
+        <!--				<executions>-->
+        <!--					<execution>-->
+        <!--						<phase>compile</phase>-->
+        <!--						<goals>-->
+        <!--							<goal>check</goal>-->
+        <!--						</goals>-->
+        <!--					</execution>-->
+        <!--				</executions>-->
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-mail</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+    <dependency>
+      <artifactId>sonar-maven-plugin</artifactId>
+      <groupId>org.sonarsource.scanner.maven</groupId>
+      <version>5.0.0.4389</version>
+    </dependency>
+    <!-- Jacoco Maven Plugin -->
+    <dependency>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <groupId>org.jacoco</groupId>
+      <version>0.8.7</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>mapstruct</artifactId>
+      <groupId>org.mapstruct</groupId>
+      <version>${mapstruct.version}</version>
+    </dependency>
+    <!-- Nimbus JOSE JWT -->
+    <dependency>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <groupId>com.nimbusds</groupId>
+      <version>9.31</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+    <dependency>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <groupId>org.apache.maven.plugins</groupId>
+      <version>3.5.2</version>
+    </dependency>
+
+    <!--		<dependency>-->
+    <!--			<groupId>org.springframework.boot</groupId>-->
+    <!--			<artifactId>spring-boot-docker-compose</artifactId>-->
+    <!--			<scope>runtime</scope>-->
+    <!--			<optional>true</optional>-->
+    <!--		</dependency>-->
+    <!--		&lt;!&ndash; https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt &ndash;&gt;-->
+    <!--		<dependency>-->
+    <!--			<groupId>io.jsonwebtoken</groupId>-->
+    <!--			<artifactId>jjwt</artifactId>-->
+    <!--			<version>0.12.6</version>-->
+    <!--		</dependency>-->
+    <dependency>
+      <artifactId>h2</artifactId>
+      <groupId>com.h2database</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>mssql-jdbc</artifactId>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <!--		<dependency>-->
+    <!--			<groupId>org.springframework.restdocs</groupId>-->
+    <!--			<artifactId>spring-restdocs-mockmvc</artifactId>-->
+    <!--			<scope>test</scope>-->
+    <!--		</dependency>-->
+    <dependency>
+      <artifactId>spring-security-test</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>thumbnailator</artifactId>
+      <groupId>net.coobird</groupId>
+      <version>0.4.17</version>
+    </dependency>
+    <dependency>
+      <artifactId>maven-checkstyle-plugin</artifactId>
+      <groupId>org.apache.maven.plugins</groupId>
+      <version>3.6.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
+    <dependency>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <groupId>org.hibernate</groupId>
+      <scope>provided</scope>
+      <version>6.6.11.Final</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+    <dependency>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <groupId>org.apache.maven.plugins</groupId>
+      <version>3.14.0</version>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>testcontainers-bom</artifactId>
+        <groupId>org.testcontainers</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>1.19.7</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <description>Website to watch anime movies AnimeH</description>
+  <developers>
+    <developer/>
+  </developers>
+  <groupId>com.source</groupId>
+  <licenses>
+    <license/>
+  </licenses>
+  <modelVersion>4.0.0</modelVersion>
+  <name>animeh</name>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>3.4.2</version> <!-- lookup parent from repository -->
+  </parent>
+  <properties>
+    <java.version>21</java.version>
+    <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <projectlombok-lombok.version>1.18.30</projectlombok-lombok.version>
+    <sonar.projectKey>yunomix2834_animeh_be_d4f8e656-3889-487e-a7cc-9cee3a965f64</sonar.projectKey>
+    <sonar.projectName>AnimeHay-Backend</sonar.projectName>
+    <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+    <!-- Hoặc -->
+    <spotless.version>2.43.0</spotless.version>
+  </properties>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <version>3.6.0</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  <scm>
+    <connection/>
+    <developerConnection/>
+    <tag/>
+    <url/>
+  </scm>
+  <url/>
+
+  <version>0.0.1-SNAPSHOT</version>
+
+</project>
