@@ -1,33 +1,37 @@
-# AnimeH – Quy tắc Ứng xử
+# Quy tắc ứng xử – AnimeH (Contributor Covenant v2.1)
 
-Chúng ta cùng xây dựng một kho anime vui vẻ, cởi mở và an toàn cho **mọi** fan.
+_Chúng ta cùng xây dựng một cộng đồng tích cực, tôn trọng và cởi mở._
 
-## 1. Giá trị cốt lõi
-* **Tôn trọng**: Tôn trọng mọi thành viên, mọi nền văn hoá và mọi “ship”.
-* **Hỗ trợ**: Giúp đỡ lẫn nhau, đặc biệt là người mới.
-* **Cởi mở**: Đón nhận ý kiến trái chiều miễn là lịch sự.
-* **Chia sẻ**: Kiến thức, mã nguồn, meme – càng nhiều càng tốt!
+## Cam kết của chúng ta
 
-## 2. Hành vi được khuyến khích
-* Giao tiếp thân thiện, lịch thiệp.
-* Phản hồi mang tính xây dựng: “Có thể refactor hàm `filterEpisodesByRole()` thế này…”
-* Báo cáo lỗi kèm cách tái hiện chi tiết.
-* Ghi nhận công sức của người khác (trong commit, PR, release note).
+Với vai trò là thành viên, chúng ta cam kết tạo ra một môi trường thân thiện, không phân biệt giới tính, tuổi tác, khuyết tật, sắc tộc, tôn giáo, xu hướng tính dục, hoặc trình độ kỹ thuật.  
+Chúng ta trân trọng mọi đóng góp, ý tưởng và phản hồi.
 
-## 3. Hành vi không chấp nhận
-* Công kích cá nhân, kỳ thị giới tính, sắc tộc, tôn giáo.
-* Spam, quảng cáo, nội dung NSFW không gắn cờ rõ ràng.
-* Cố tình leak spoiler **mà không che** (hãy dùng thẻ `<details>` hoặc `[spoiler]`).
-* “Code‑shaming” – chê bai mà không đưa gợi ý cải thiện.
+## Hành vi được khuyến khích
 
-## 4. Báo cáo vi phạm
-Gửi email tới **code‑of‑conduct@animeh.dev** hoặc tag `@core-maintainers` trong issue/PR kèm bằng chứng (screenshot, link). Tất cả báo cáo sẽ được giữ kín.
+- Sử dụng ngôn ngữ thân thiện, mang tính xây dựng.  
+- Tôn trọng quan điểm và kinh nghiệm của người khác.  
+- Nhận (và đưa) phản hồi một cách lịch sự, rõ ràng.  
+- Chấp nhận trách nhiệm và xin lỗi khi cần.
 
-## 5. Hình thức xử lý
-1. **Nhắc nhở** *(friendly ping)*  
-2. **Cảnh cáo công khai**  
-3. **Tạm khóa quyền commit/issue**  
-4. **Ban vĩnh viễn** (chỉ dùng cho vi phạm nghiêm trọng lặp lại)
+## Hành vi không chấp nhận
 
-## 6. Cảm ơn
-Bạn đang góp phần biến AnimeH thành nơi xem phim – và viết code – tuyệt vời hơn. *Arigatou gozaimasu!* ✨
+- Ngôn từ hoặc hình ảnh có tính quấy rối, miệt thị.  
+- Đe doạ, bạo lực, hoặc cổ vũ bạo lực.  
+- Công kích cá nhân hoặc chính trị.  
+- Chia sẻ thông tin cá nhân của người khác mà chưa được phép.  
+- Hành vi phá hoại dự án, spam.
+
+## Phạm vi
+
+Quy tắc này áp dụng cho **mọi không gian dự án**: kho mã nguồn, issues, pull‑requests, kênh chat, mạng xã hội liên quan, cũng như các sự kiện offline/online do cộng đồng tổ chức.
+
+## Thực thi
+
+Vi phạm quy tắc sẽ được xử lý bởi ban duy trì dự án.  
+Hình thức có thể từ nhắc nhở, cảnh cáo, đến cấm tham gia tạm thời hoặc vĩnh viễn.  
+Nếu bạn chứng kiến hành vi sai phạm, hãy gửi email đến **conduct@animeh.dev** (nội dung bằng tiếng Anh hoặc Việt).
+
+## Tín dụng
+
+Văn bản này dựa trên [Contributor Covenant](https://www.contributor-covenant.org/) v2.1.
