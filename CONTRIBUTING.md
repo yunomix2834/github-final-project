@@ -7,9 +7,9 @@ Chúng mình luôn chào đón mọi đóng góp – từ sửa lỗi chính t�
 
 1. **Fork & Clone**  
    ```bash
-   git clone https://github.com/<your‑username>/animeh.git
+   git clone https://github.com/yunomix2834/github-final-project.git
    cd animeh
-   git remote add upstream https://github.com/animeh-dev/animeh.git
+   git remote add upstream https://github.com/yunomix2834/github-final-project.git
    ```
 
 2. **Tạo nhánh mới** (tên gợi ý: `feature/<mô-tả-ngắn>` hoặc `fix/<issue#>`):  
@@ -59,7 +59,7 @@ Chúng mình luôn chào đón mọi đóng góp – từ sửa lỗi chính t�
 |-------|------|------------------|
 | Back‑end | Spring Boot 3 | Package theo “feature‑slice”; tránh “god service”. |
 | Front‑end | React + Vite | Sử dụng hooks, Tailwind, tránh className spaghetti. |
-| DB | PostgreSQL | Snake_case; primary key UUID v4; soft delete dùng `is_deleted`. |
+| DB | SQLServer | Snake_case; primary key UUID v4; soft delete dùng `is_deleted`. |
 
 ## 5. Vấn đề bảo mật
 
